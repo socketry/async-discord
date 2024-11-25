@@ -4,6 +4,7 @@ require 'async/discord/client'
 require 'async/ollama'
 
 TOKEN = ENV["DISCORD_BOT_TOKEN"]
+MODEL = ENV.fetch("OLLAMA_MODEL", "llama3.1")
 
 def initial_prompt(identity)
 	bot_name = identity[:user][:username]
@@ -31,7 +32,7 @@ Async::Discord::Client.open do |client|
 	if File.exist?("context.dat")
 		Console.info(self, "Loading context from file...")
 		context = File.read("context.dat")
-		conversation = Async::Ollama::Generate.new(ollama.with(path: "/api/generate"), value: {context: context, model: "llama3.1"})
+		conversation = Async::Ollama::Generate.new(ollama.with(path: "/api/generate"), value: {context: context, model: MODEL})
 	end
 	
 	while true
@@ -39,7 +40,7 @@ Async::Discord::Client.open do |client|
 			identity =  connection.identify(token: TOKEN)
 			bot_id = identity[:user][:id]
 			
-			conversation ||= ollama.generate(initial_prompt(identity), model: "llama3.1")
+			conversation ||= ollama.generate(initial_prompt(identity), model: MODEL)
 			
 			connection.listen do |payload|
 				case payload[:t]
