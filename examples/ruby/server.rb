@@ -31,7 +31,7 @@ Async::Discord::Client.open do |client|
 	
 	if File.exist?("context.dat")
 		Console.info(self, "Loading context from file...")
-		context = File.read("context.dat")
+		context = eval(File.read("context.dat"))
 		conversation = Async::Ollama::Generate.new(ollama.with(path: "/api/generate"), value: {context: context, model: MODEL})
 	end
 	

@@ -164,6 +164,7 @@ module Async
 						Console.debug(self, "Sending heartbeat.", sequence: @sequence)
 						heartbeat_message = ::Protocol::WebSocket::TextMessage.generate(op: HEARTBEAT, d: @sequence)
 						heartbeat_message.send(self)
+						self.flush
 						
 						sleep(duration)
 					end
