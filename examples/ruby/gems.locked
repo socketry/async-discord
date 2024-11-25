@@ -1,0 +1,76 @@
+PATH
+  remote: ../..
+  specs:
+    async-discord (0.0.0)
+      async-rest
+      async-websocket
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    async (2.21.0)
+      console (~> 1.29)
+      fiber-annotation
+      io-event (~> 1.6, >= 1.6.5)
+    async-http (0.84.0)
+      async (>= 2.10.2)
+      async-pool (~> 0.9)
+      io-endpoint (~> 0.14)
+      io-stream (~> 0.6)
+      metrics (~> 0.12)
+      protocol-http (~> 0.43)
+      protocol-http1 (>= 0.28.1)
+      protocol-http2 (~> 0.19)
+      traces (~> 0.10)
+    async-ollama (0.4.0)
+      async
+      async-rest (~> 0.17)
+    async-pool (0.10.2)
+      async (>= 1.25)
+      traces
+    async-rest (0.18.0)
+      async-http (~> 0.42)
+      protocol-http (~> 0.7)
+    async-websocket (0.30.0)
+      async-http (~> 0.76)
+      protocol-http (~> 0.34)
+      protocol-rack (~> 0.7)
+      protocol-websocket (~> 0.17)
+    console (1.29.0)
+      fiber-annotation
+      fiber-local (~> 1.1)
+      json
+    fiber-annotation (0.2.0)
+    fiber-local (1.1.0)
+      fiber-storage
+    fiber-storage (1.0.0)
+    io-endpoint (0.14.0)
+    io-event (1.7.4)
+    io-stream (0.6.1)
+    json (2.8.2)
+    metrics (0.12.1)
+    protocol-hpack (1.5.1)
+    protocol-http (0.44.0)
+    protocol-http1 (0.28.1)
+      protocol-http (~> 0.22)
+    protocol-http2 (0.20.0)
+      protocol-hpack (~> 1.4)
+      protocol-http (~> 0.18)
+    protocol-rack (0.11.0)
+      protocol-http (~> 0.43)
+      rack (>= 1.0)
+    protocol-websocket (0.20.1)
+      protocol-http (~> 0.2)
+    rack (3.1.8)
+    traces (0.14.1)
+
+PLATFORMS
+  ruby
+  x86_64-linux
+
+DEPENDENCIES
+  async-discord!
+  async-ollama
+
+BUNDLED WITH
+   2.5.22
