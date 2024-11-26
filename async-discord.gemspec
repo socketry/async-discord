@@ -16,6 +16,7 @@ Gem::Specification.new do |spec|
 	spec.homepage = "https://github.com/socketry/async-discord"
 	
 	spec.metadata = {
+		"documentation_uri" => "https://socketry.github.io/async-discord/",
 		"source_code_uri" => "https://github.com/socketry/async-discord.git",
 	}
 	
