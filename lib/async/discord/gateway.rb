@@ -203,7 +203,9 @@ module Async
 				self.value[:shards]
 			end
 			
-			
+			# Limits associated with this bot connecting to the gateway. You should respect these limits to avoid being rate limited.
+			#
+			# @returns [Hash] the limits, including `:total`, `:remaining`, `:reset_after`, and `:max_concurrency`.
 			def session_start_limit
 				self.value[:session_start_limit]
 			end
