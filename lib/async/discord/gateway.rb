@@ -9,6 +9,7 @@ require "async/websocket"
 
 module Async
 	module Discord
+		# Represents a gateway connection to Discord, which can be used to send and receive messages via a WebSocket connection.
 		class GatewayConnection < Async::WebSocket::Connection
 			# Gateway Opcodes:
 			DISPATCH = 0
@@ -24,7 +25,7 @@ module Async
 			HEARTBEAT_ACK = 11
 			REQUEST_SOUNDBOARD_SOUNDS = 31
 			
-			# Gateway Error Codes
+			# Gateway Error Codes.
 			ERROR_CODES = {
 				4000 => "UNKNOWN_ERROR",
 				4001 => "UNKNOWN_OPCODE",
@@ -42,7 +43,7 @@ module Async
 				4014 => "DISALLOWED_INTENT"
 			}
 			
-			# Guild Intents:
+			# Guild Intents.
 			module Intent
 				GUILDS = 1 << 0
 				GUILD_MEMBERS = 1 << 1
@@ -67,20 +68,24 @@ module Async
 				DIRECT_MESSAGE_POLLS = 1 << 25
 			end
 			
+			# Default intent for a bot.
 			DEFAULT_INTENT = Intent::GUILDS | Intent::GUILD_MESSAGES | Intent::DIRECT_MESSAGES
 			
+			# Default properties for a bot.
 			DEFAULT_PROPERTIES = {
 				os: RUBY_PLATFORM,
 				browser: Async::Discord.name,
 				device: Async::Discord.name,
 			}
 			
+			# Default presence for a bot.
 			DEFAULT_PRESENCE = {
 				status: "online",
 				afk: false,
 				activities: [],
 			}
 			
+			# Initialize the gateway connection.
 			def initialize(...)
 				super
 				
@@ -88,6 +93,7 @@ module Async
 				@sequence = nil
 			end
 			
+			# Close the gateway connection, including the heartbeat task.
 			def close(...)
 				if heartbeat_task = @heartbeat_task
 					@heartbeat_task = nil
@@ -97,6 +103,9 @@ module Async
 				super
 			end
 			
+			# Identify the bot with the given identity.
+			#
+			# @returns [Hash] the payload from the READY event.
 			def identify(**identity)
 				while message = self.read
 					payload = message.parse
@@ -136,6 +145,10 @@ module Async
 				end
 			end
 			
+			# Listen for events from the gateway.
+			#
+			# @yields {|payload| ...}
+			# 	@parameter payload [Hash] The parsed payload.
 			def listen
 				while message = self.read
 					payload = message.parse
@@ -158,6 +171,7 @@ module Async
 			
 			private
 			
+			# Run a heartbeat task at the given interval.
 			def run_heartbeat(duration_ms)
 				duration = duration_ms / 1000.0
 				Console.debug(self, "Running heartbeat every #{duration} seconds.")
@@ -177,19 +191,28 @@ module Async
 			end
 		end
 		
+		# Represents a gateway for the bot.
 		class Gateway < Representation
+			# The URL of the gateway, used for connecting to the WebSocket server.
 			def url
 				self.value[:url]
 			end
 			
+			# The number of shards to use.
 			def shards
 				self.value[:shards]
 			end
+			
 			
 			def session_start_limit
 				self.value[:session_start_limit]
 			end
 			
+			# Connect to the gateway, yielding the connection.
+			#
+			# @yields {|connection| ...} if a block is given.
+			# 	@parameter connection [GatewayConnection] The connection to the gateway.
+			# @returns [GatewayConnection] the connection to the gateway.
 			def connect(shard: nil, &block)
 				endpoint = Async::HTTP::Endpoint.parse(self.url, alpn_protocols: Async::HTTP::Protocol::HTTP11.names)
 				

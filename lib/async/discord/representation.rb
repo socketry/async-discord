@@ -8,9 +8,11 @@ require "async/rest/wrapper/form"
 
 module Async
 	module Discord
+		# The default wrapper for Discord.
 		class Wrapper < Async::REST::Wrapper::JSON
 		end
 		
+		# The default representation for Discord.
 		class Representation < Async::REST::Representation[Wrapper]
 		end
 	end

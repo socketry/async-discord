@@ -10,10 +10,19 @@ require_relative "gateway"
 
 module Async
 	module Discord
+		# A client for interacting with Discord.
 		class Client < Async::REST::Resource
+			# The default endpoint for Discord.
 			ENDPOINT = Async::HTTP::Endpoint.parse("https://discord.com/api/v10/")
+			
+			# The default user agent for this client.
 			USER_AGENT = "#{self.name} (https://github.com/socketry/async-discord, v#{Async::Discord::VERSION})"
 			
+			# Authenticate the client, either with a bot or bearer token.
+			#
+			# @parameter bot [String] The bot token.
+			# @parameter bearer [String] The bearer token.
+			# @returns [Client] a new client with the given authentication.
 			def authenticated(bot: nil, bearer: nil)
 				headers = {}
 				
@@ -30,14 +39,17 @@ module Async
 				return self.with(headers: headers)
 			end
 			
+			# @returns [Guilds] a collection of guilds the bot is a member of.
 			def guilds
 				Guilds.new(self.with(path: "users/@me/guilds"))
 			end
 			
+			# @returns [Gateway] the gateway for the bot.
 			def gateway
 				Gateway.new(self.with(path: "gateway/bot"))
 			end
 			
+			# @returns [Channel] a channel by its unique identifier.
 			def channel(id)
 				Channel.new(self.with(path: "channels/#{id}"))
 			end
