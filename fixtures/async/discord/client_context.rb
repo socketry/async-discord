@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "async/discord/client"
 require "sus/fixtures/async/reactor_context"
 

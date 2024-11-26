@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "async/discord/client_context"
 
 describe Async::Discord::Client do

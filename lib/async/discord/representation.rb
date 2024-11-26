@@ -1,4 +1,4 @@
-# frozen_string_literals: true
+# frozen_string_literal: true
 #
 # Copyright, 2019, by Samuel G. D. Williams. <http://www.codeotaku.com>
 # 
@@ -20,8 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require 'async/rest/representation'
-require 'async/rest/wrapper/form'
+require "async/rest/representation"
+require "async/rest/wrapper/form"
 
 module Async
 	module Discord

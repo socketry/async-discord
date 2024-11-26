@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-require 'async/discord/client'
-require 'async/ollama'
+require "async/discord/client"
+require "async/ollama"
 
 TOKEN = ENV["DISCORD_BOT_TOKEN"]
 MODEL = ENV.fetch("OLLAMA_MODEL", "llama3.1")
