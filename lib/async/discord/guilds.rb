@@ -27,6 +27,10 @@ module Async
 			def to_a
 				each.to_a
 			end
+			
+			def empty?
+				self.value.empty?
+			end
 		end
 	end
 end

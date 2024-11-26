@@ -33,4 +33,6 @@ jobs:
     
     - name: Run tests
       timeout-minutes: 10
+      env:
+        DISCORD_BOT_TOKEN: ${{secrets.DISCORD_BOT_TOKEN}}
       run: bundle exec bake test:external

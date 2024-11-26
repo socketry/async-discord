@@ -32,6 +32,8 @@ jobs:
     
     - name: Run tests
       timeout-minutes: 5
+      env:
+        DISCORD_BOT_TOKEN: ${{secrets.DISCORD_BOT_TOKEN}}
       run: bundle exec bake test
     
     - uses: actions/upload-artifact@v4
