@@ -12,7 +12,7 @@ module Async
 	module Discord
 		class Client < Async::REST::Resource
 			ENDPOINT = Async::HTTP::Endpoint.parse("https://discord.com/api/v10/")
-			USER_AGENT = "#{self.name} (https://github.com/socketry/async-discord, v#{Async::Discord::VERSION})"
+			USER_AGENT = "DiscordBot (https://github.com/socketry/async-discord, v#{Async::Discord::VERSION})"
 			
 			def authenticated(bot: nil, bearer: nil)
 				headers = {}
