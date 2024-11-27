@@ -7,6 +7,7 @@ require_relative "representation"
 
 require_relative "guilds"
 require_relative "gateway"
+require_relative "application"
 
 module Async
 	module Discord
@@ -14,10 +15,10 @@ module Async
 		class Client < Async::REST::Resource
 			# The default endpoint for Discord.
 			ENDPOINT = Async::HTTP::Endpoint.parse("https://discord.com/api/v10/")
-			
+
 			# The default user agent for this client.
 			USER_AGENT = "#{self.name} (https://github.com/socketry/async-discord, v#{Async::Discord::VERSION})"
-			
+
 			# Authenticate the client, either with a bot or bearer token.
 			#
 			# @parameter bot [String] The bot token.
@@ -25,9 +26,9 @@ module Async
 			# @returns [Client] a new client with the given authentication.
 			def authenticated(bot: nil, bearer: nil)
 				headers = {}
-				
+
 				headers["user-agent"] ||= USER_AGENT
-				
+
 				if bot
 					headers["authorization"] = "Bot #{bot}"
 				elsif bearer
@@ -35,23 +36,33 @@ module Async
 				else
 					raise ArgumentError, "You must provide either a bot or bearer token!"
 				end
-				
+
 				return self.with(headers: headers)
 			end
-			
+
 			# @returns [Guilds] a collection of guilds the bot is a member of.
 			def guilds
 				Guilds.new(self.with(path: "users/@me/guilds"))
 			end
-			
+
 			# @returns [Gateway] the gateway for the bot.
 			def gateway
 				Gateway.new(self.with(path: "gateway/bot"))
 			end
-			
+
 			# @returns [Channel] a channel by its unique identifier.
 			def channel(id)
 				Channel.new(self.with(path: "channels/#{id}"))
+			end
+
+			# @returns [Application] the application.
+			def application(id)
+				Application.new(self.with(path: "applications/#{id}"))
+			end
+
+			# @returns [Application] the application which is currently authenticated.
+			def current_application
+				application("@me")
 			end
 		end
 	end
